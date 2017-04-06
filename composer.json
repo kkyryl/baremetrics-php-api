@@ -1,16 +1,17 @@
 {
     "name": "eliksir/baremetrics-php-api",
     "description": "Library to easily work with the Baremetrics API",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "keywords": ["baremetrics"],
     "homepage": "https://github.com/eliksir/baremetrics-php-api",
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": ">=6.0.0"
     },
     "autoload": {
         "psr-4": {
-            "Baremetrics\\": "src/"
+            "Baremetrics\\": "src/Baremetrics/"
         }
     }
 }
