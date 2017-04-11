@@ -4,7 +4,7 @@ namespace Baremetrics;
 class Client {
 	const LIVE_API_URL = 'https://api.baremetrics.com';
 	const SANDBOX_API_URL = 'https://api-sandbox.baremetrics.com';
-	const METHODS = ['create', 'delete', 'list', 'show', 'update'];
+	const METHODS = ['cancel', 'create', 'delete', 'list', 'show', 'update'];
 
 	private $apiKey;
 
@@ -45,11 +45,14 @@ class Client {
 			throw new Exception('Unsupported API call');
 		}
 
+		$method = $matches['method'];
+
 		$resourceName = $this->normalizeResourceName($matches['resource']);
 		$ResourceClass = '\\Baremetrics\\Resources\\' . $resourceName;
 		$resource = new $ResourceClass($this);
 
-		if (in_array($matches['method'], Client::METHODS)) {
+		if (in_array($method, Client::METHODS) &&
+				(method_exists($resource, $method) || $method === 'list')) {
 			return call_user_func_array([$resource, $matches['method']], $args);
 		}
 

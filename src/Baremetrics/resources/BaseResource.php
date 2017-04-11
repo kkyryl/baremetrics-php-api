@@ -19,7 +19,8 @@ abstract class BaseResource {
 	 * @param string $resourceId
 	 * @return string
 	 */
-	protected function getResourcePath ($sourceId = null, $resourceId = null) {
+	protected function getResourcePath ($sourceId = null, $resourceId = null,
+			$action = null) {
 		$path = static::PATH;
 
 		if ($sourceId) {
@@ -28,6 +29,10 @@ abstract class BaseResource {
 
 		if ($resourceId) {
 			$path .= '/' . urlencode($resourceId);
+		}
+
+		if ($action) {
+			$path .= "/{$action}";
 		}
 
 		return $path;

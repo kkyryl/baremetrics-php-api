@@ -4,6 +4,17 @@ namespace Baremetrics\Resources;
 class Subscription extends BaseResource {
 	const PATH = '{}/subscriptions';
 
+	public function cancel ($sourceId, $subscriptionId, $cancellationData = null) {
+		if (!$cancellationData) {
+			$cancellationData = ['canceled_at' => time()];
+		}
+
+		return $this->client->httpPut(
+			$this->getResourcePath($sourceId, $subscriptionId, 'cancel'),
+			$cancellationData
+		);
+	}
+
 	public function create ($sourceId, $subscriptionData) {
 		return $this->client->httpPost(
 			$this->getResourcePath($sourceId), $subscriptionData
