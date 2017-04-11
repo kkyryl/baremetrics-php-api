@@ -20,10 +20,14 @@ abstract class BaseResource {
 	 * @return string
 	 */
 	protected function getResourcePath ($sourceId = null, $resourceId = null) {
-		$path = $sourceId ? str_replace('{}', $sourceId, static::PATH) : static::PATH;
+		$path = static::PATH;
+
+		if ($sourceId) {
+			$path = str_replace('{}', urlencode($sourceId), $path);
+		}
 
 		if ($resourceId) {
-			$path .= "/{$resourceId}";
+			$path .= '/' . urlencode($resourceId);
 		}
 
 		return $path;
