@@ -4,9 +4,9 @@ namespace Baremetrics;
 class Client {
 	const LIVE_API_URL = 'https://api.baremetrics.com';
 	const SANDBOX_API_URL = 'https://api-sandbox.baremetrics.com';
-	const METHODS = ['cancel', 'create', 'delete', 'list', 'show', 'update'];
 
 	private $apiKey;
+	private $methods = ['cancel', 'create', 'delete', 'list', 'show', 'update'];
 
 	/**
 	 * Create a new Baremetrics API client with given API key.
@@ -51,7 +51,7 @@ class Client {
 		$ResourceClass = '\\Baremetrics\\Resources\\' . $resourceName;
 		$resource = new $ResourceClass($this);
 
-		if (in_array($method, Client::METHODS) &&
+		if (in_array($method, $this->methods) &&
 				(method_exists($resource, $method) || $method === 'list')) {
 			return call_user_func_array([$resource, $matches['method']], $args);
 		}
