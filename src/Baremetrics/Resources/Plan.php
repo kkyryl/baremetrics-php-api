@@ -6,7 +6,7 @@ class Plan extends BaseResource {
 
 	public function create ($sourceId, $planData) {
 		return $this->client->httpPost(
-			$this->getResourcePath($sourceId)
+			$this->getResourcePath($sourceId), $planData
 		);
 	}
 
