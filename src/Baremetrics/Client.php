@@ -112,6 +112,9 @@ class Client {
 	 */
 	private function sendRequest ($method, $path, $data = null) {
 		try {
+			// flush old error messages
+			$this->lastException = null;
+
 			$path = "/v1/{$path}";
 			$params = [
 				'headers' => [
@@ -155,9 +158,7 @@ class Client {
 		if($this->lastException == null) {
 			return false;
 		} else {
-			$exception = $this->lastException;
-			$this->lastException = null;
-			return $exception;
+			return $this->lastException;
 		}
 	}
 }
