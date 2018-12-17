@@ -8,6 +8,9 @@ class Client {
 	private $apiKey;
 	private $methods = ['cancel', 'create', 'delete', 'list', 'show', 'update'];
 
+	/** @var \GuzzleHttp\Exception\ClientException $lastException */
+	private $lastException;
+
 	/**
 	 * Create a new Baremetrics API client with given API key.
 	 *
@@ -109,6 +112,9 @@ class Client {
 	 */
 	private function sendRequest ($method, $path, $data = null) {
 		try {
+			// flush old error messages
+			$this->lastException = null;
+
 			$path = "/v1/{$path}";
 			$params = [
 				'headers' => [
@@ -123,6 +129,7 @@ class Client {
 			$response = $this->httpClient->request($method, $path, $params);
 		}
 		catch (\GuzzleHttp\Exception\ClientException $e) {
+			$this->lastException = $e;
 			return null;
 		}
 
@@ -141,5 +148,17 @@ class Client {
 	 */
 	private function normalizeResourceName ($name) {
 		return preg_replace('/s$/', '', $name);
+	}
+
+	/**
+	 * Returns false if no exception occured, otherwise a guzzle ClientException.
+	 * @return bool|\GuzzleHttp\Exception\ClientException
+	 */
+	public function getLastException() {
+		if($this->lastException == null) {
+			return false;
+		} else {
+			return $this->lastException;
+		}
 	}
 }
