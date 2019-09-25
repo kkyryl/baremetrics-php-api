@@ -1,5 +1,6 @@
 <?php
 namespace Baremetrics;
+
 class Client {
     const LIVE_API_URL = 'https://api.baremetrics.com';
     const SANDBOX_API_URL = 'https://api-sandbox.baremetrics.com';
