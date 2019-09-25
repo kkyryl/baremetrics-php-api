@@ -9,7 +9,11 @@ class Charge extends BaseResource {
 			$this->getResourcePath($sourceId), $chargeData
 		);
 	}
-
+	public function delete ($sourceId, $chargeId) {
+		return $this->client->httpDelete(
+		    $this->getResourcePath($sourceId, $chargeId)
+		);
+	}
 	public function retrieve ($sourceId) {
 		return $this->client->httpGet($this->getResourcePath($sourceId));
 	}
