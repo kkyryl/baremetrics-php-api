@@ -1,10 +1,16 @@
 {
     "name": "eliksir/baremetrics-php-api",
     "description": "Library to easily work with the Baremetrics API",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "keywords": ["baremetrics"],
-    "homepage": "https://github.com/eliksir/baremetrics-php-api",
+    "homepage": "https://github.com/kkyryl/baremetrics-php-api",
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/kkyryl/baremetrics-php-api"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": ">=6.0.0"
